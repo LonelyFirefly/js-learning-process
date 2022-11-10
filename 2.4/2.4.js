@@ -1,2 +1,3 @@
-let ourPlanetName;
-let currentUser;
+"use strict";
+
+alert(undefined == null);
