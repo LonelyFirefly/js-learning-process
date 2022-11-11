@@ -1,5 +1,6 @@
 "use strict";
 
-for (let i = 0; i < 2; i++) {
-	alert(i);
+function doNothing() {
+	return;
 }
+alert(doNothing() === undefined);
