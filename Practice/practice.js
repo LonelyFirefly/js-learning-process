@@ -1,3 +1,3 @@
 "use strict";
 
-alert(null === undefined);
+let use;
