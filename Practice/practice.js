@@ -10,10 +10,7 @@ multiplyNumeric(menu);
 
 function multiplyNumeric(menu) {
 	for (const key in menu) {
-		if (!NaN) menu[key] *= 2;
-		else {
-			continue;
-		}
+		if (typeof menu[key] == "number") menu[key] *= 2;
 	}
 }
 
