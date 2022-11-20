@@ -1,5 +1,7 @@
 "use strict";
 
-let id = Symbol("id");
+let str = "Hello";
 
-alert(id.description);
+str.test = 5;
+
+alert(str.test);
