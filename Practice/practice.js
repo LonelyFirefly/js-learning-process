@@ -1,9 +1,12 @@
 "use strict";
 
-function random(min, max) {
-	return Math.random();
+function truncate(str, maxLength) {
+	if (str.length > maxLength) {
+		str.slice(maxLength) = "...";
+	}
+    return str;
 }
 
-alert(random(1, 5)); // 1.2345623452
-alert(random(1, 5)); // 3.7894332423
-alert(random(1, 5)); // 4.3435234525
+alert(truncate("Вот, что мне хотелось бы сказать на эту тему:", 20));
+
+alert(truncate("Всем привет!", 20));
