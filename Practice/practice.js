@@ -1,7 +1,9 @@
 "use strict";
 
-let str = "Hello";
+function random(min, max) {
+	return Math.random();
+}
 
-str.test = 5;
-
-alert(str.test);
+alert(random(1, 5)); // 1.2345623452
+alert(random(1, 5)); // 3.7894332423
+alert(random(1, 5)); // 4.3435234525
