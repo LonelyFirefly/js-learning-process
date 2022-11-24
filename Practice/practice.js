@@ -1,12 +1,8 @@
 "use strict";
 
-function truncate(str, maxLength) {
-	if (str.length > maxLength) {
-		str.slice(maxLength) = "...";
+array = [1, -2, 3, 4, -9, 6];
+
+for (let index = 0; index < array.length; index++) {
+	if (array[index] > array[index + 1]) {
 	}
-    return str;
 }
-
-alert(truncate("Вот, что мне хотелось бы сказать на эту тему:", 20));
-
-alert(truncate("Всем привет!", 20));
