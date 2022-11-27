@@ -1,11 +1,23 @@
 "use strict";
 
-let arr = [5, 3, 8, 1];
+let powerCalc = new Calculator();
+powerCalc.addMethod("*", (a, b) => a * b);
+powerCalc.addMethod("/", (a, b) => a / b);
+powerCalc.addMethod("**", (a, b) => a ** b);
 
-function filterRange(arr, a, b) {
-	return arr.filter((item) => a <= item && item <= b);
+let Calculator = calculate(str) {
+	str = str.split(" ");
+	return +str[0] + +str[2];
 }
 
-let filtered = filterRange(arr, 1, 4);
+function addMethod(operatorFromString, func) {
+	operatorFromString = {
+		"+": (a, b) => a + b,
+		"/": (a, b) => a / b,
+		"*": (a, b) => a * b,
+		"**": (a, b) => a ** b,
+	};
+}
 
-alert(filtered); // 3,1 (совпадающие значения)
+let result = powerCalc.calculate("2 ** 3");
+alert(result); // 8
