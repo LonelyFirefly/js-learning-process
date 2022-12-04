@@ -1,16 +1,11 @@
 "use strict";
 
-function groupById(users) {
-	return users.reduce((obj, value) => {
-		obj[value.id] = value;
-		return obj;
-	}, {});
-}
+let map = new Map();
 
-let users = [
-	{ id: "john", name: "John Smith", age: 20 },
-	{ id: "ann", name: "Ann Smith", age: 24 },
-	{ id: "pete", name: "Pete Peterson", age: 31 },
-];
+map.set("name", "John");
 
-let usersById = groupById(users);
+let keys = Array.from(map.keys());
+
+keys.push("more");
+
+alert(keys);
