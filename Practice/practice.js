@@ -1,11 +1,12 @@
 "use strict";
 
-let map = new Map();
+let options = {
+	title: "Menu",
+	width: 100,
+	height: 200,
+};
 
-map.set("name", "John");
+let { title, ...rest } = options;
 
-let keys = Array.from(map.keys());
-
-keys.push("more");
-
-alert(keys);
+alert(rest.width);
+alert(rest.height);
