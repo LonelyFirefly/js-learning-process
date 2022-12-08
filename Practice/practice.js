@@ -1,12 +1,23 @@
 "use strict";
 
-let options = {
-	title: "Menu",
-	width: 100,
-	height: 200,
+let salaries = {
+	John: 100,
+	Pete: 300,
+	Mary: 250,
 };
 
-let { title, ...rest } = options;
+function topSalary(salaries) {
+	let max = 0;
+	let MaxName = null;
+	for (const [name, salary] of Object.entries(salaries)) {
+		if (salary > max) {
+			max = salary;
+			MaxName = name;
+		}
+	}
+	alert(MaxName);
+}
 
-alert(rest.width);
-alert(rest.height);
+topSalary(salaries);
+
+// alert(Object.entries(salaries));
