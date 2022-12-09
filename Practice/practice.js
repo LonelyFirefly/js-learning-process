@@ -1,23 +1,14 @@
 "use strict";
 
-let salaries = {
-	John: 100,
-	Pete: 300,
-	Mary: 250,
-};
+function getDateAgo(date, days) {
+	let copyDate = new Date(date);
 
-function topSalary(salaries) {
-	let max = 0;
-	let MaxName = null;
-	for (const [name, salary] of Object.entries(salaries)) {
-		if (salary > max) {
-			max = salary;
-			MaxName = name;
-		}
-	}
-	alert(MaxName);
+	copyDate.setDate(date.getDate() - days);
+	return copyDate.getDate();
 }
 
-topSalary(salaries);
+let date = new Date(2015, 0, 2);
 
-// alert(Object.entries(salaries));
+alert(getDateAgo(date, 1)); // 1, (1 Jan 2015)
+alert(getDateAgo(date, 2)); // 31, (31 Dec 2014)
+alert(getDateAgo(date, 365)); // 2, (2 Jan 2014)
