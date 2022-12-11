@@ -1,15 +1,23 @@
 "use strict";
 
-let studentLearningJson = {
-	name: "John",
-	age: 30,
-	isAdmin: false,
-	courses: ["html", "css", "js"],
-	wife: null,
+let room = {
+	number: 23,
 };
 
-let json = JSON.stringify(studentLearningJson);
+let meetup = {
+	title: "Совещание",
+	occupiedBy: [{ name: "Иванов" }, { name: "Петров" }],
+	place: room,
+};
 
-alert(typeof json);
+// цикличные ссылки
+room.occupiedBy = meetup;
+meetup.self = meetup;
 
-alert(json);
+JSON.stringify(meetup, function replacer(key, value) {
+	if (value == meetup) {
+		delete meetup.key;
+	} else {
+		return value;
+	}
+});
