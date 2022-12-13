@@ -1,23 +1,39 @@
 "use strict";
 
-let room = {
-	number: 23,
-};
+// function printList(list) {
+// 	if (list.next) {
+// 		printList(list.next); // делаем то же самое для остальной части списка
+// 	}
 
-let meetup = {
-	title: "Совещание",
-	occupiedBy: [{ name: "Иванов" }, { name: "Петров" }],
-	place: room,
-};
+// 	alert(list.value); // выводим текущий элемент
+// }
 
-// цикличные ссылки
-room.occupiedBy = meetup;
-meetup.self = meetup;
+function printList(list) {
+	let temporaryVariable = list;
+	let arr = [];
 
-JSON.stringify(meetup, function replacer(key, value) {
-	if (value == meetup) {
-		delete meetup.key;
-	} else {
-		return value;
+	while (temporaryVariable) {
+		arr.push(temporaryVariable.value);
+		temporaryVariable = temporaryVariable.next;
 	}
-});
+
+	for (let index = arr.length - 1; 0 <= index; index--) {
+		alert(arr[index]);
+	}
+}
+
+let list = {
+	value: 1,
+	next: {
+		value: 2,
+		next: {
+			value: 3,
+			next: {
+				value: 4,
+				next: null,
+			},
+		},
+	},
+};
+
+printList(list);
