@@ -1,18 +1,25 @@
 "use strict";
 
-function printNumbers(from, to) {
-	let current = from;
+let worker = {
+	someMethod() {
+		return 1;
+	},
 
-	function go() {
-		alert(current);
-		if (current == to) {
-			clearInterval(timerId);
-		}
-		current++;
-	}
+	slow(x) {
+		alert(`Called with ${x}`);
+		return x * this.someMethod();
+	},
+};
 
-	go();
-	let timerId = setInterval(go, 1000);
+function cachingDecorator(func) {
+	let cache = new Map();
+	return function (x) {
+		if (cache.has(x)) return cache.get(x);
+
+		let result = func.call(this, x);
+		cache.set(x, result);
+		return result;
+	};
 }
 
-printNumbers(5, 10);
+worker.slow = cachingDecorator(worker.slow);
