@@ -1,40 +1,18 @@
 "use strict";
 
-// function makeArmy() {
-// 	let shooters = [];
+function printNumbers(from, to) {
+	let current = from;
 
-// 	let i = 0;
-// 	while (i < 10) {
-// 		let shooter = function () {
-// 			shooters.push(i);
-// 		};
-// 		shooter();
-// 		i++;
-// 	}
-// 	return shooters;
-// }
-
-// let army = makeArmy();
-
-// alert(army[0]);
-// alert(army[5]);
-
-function makeArmy() {
-	let shooters = [];
-
-	for (let i = 0; i < 10; i++) {
-		let shooter = function () {
-			// функция shooter
-			alert(i); // должна выводить порядковый номер
-		};
-		shooters.push(shooter);
+	function go() {
+		alert(current);
+		if (current == to) {
+			clearInterval(timerId);
+		}
+		current++;
 	}
 
-	return shooters;
+	go();
+	let timerId = setInterval(go, 1000);
 }
 
-let army = makeArmy();
-
-army[0](); // у 0-го стрелка будет номер 10
-army[5](); // и у 5-го стрелка тоже будет номер 10
-// ... у всех стрелков будет номер 10, вместо 0, 1, 2, 3...
+printNumbers(5, 10);
