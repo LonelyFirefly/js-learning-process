@@ -1,25 +1,23 @@
 "use strict";
 
-let worker = {
-	someMethod() {
-		return 1;
-	},
+function work(a, b) {
+	alert(a + b);
+}
 
-	slow(x) {
-		alert(`Called with ${x}`);
-		return x * this.someMethod();
-	},
-};
+function spy(func) {
+	return function wrapper(a, b) {
+		wrapper.calls = [];
+		wrapper.calls = func(a, b);
 
-function cachingDecorator(func) {
-	let cache = new Map();
-	return function (x) {
-		if (cache.has(x)) return cache.get(x);
-
-		let result = func.call(this, x);
-		cache.set(x, result);
-		return result;
+		return wrapper.calls;
 	};
 }
 
-worker.slow = cachingDecorator(worker.slow);
+work = spy(work);
+
+work(1, 2); // 3
+work(4, 5); // 9
+
+for (let args of work.calls) {
+	alert("call:" + args.join()); // "call:1,2", "call:4,5"
+}
