@@ -1,10 +1,17 @@
 "use strict";
 
-function f() {
-	alert(this.name);
+function defer(f, ms) {
+	return function (...args) {
+		let context = this;
+		setTimeout(function () {
+			return f.apply(context, args);
+		}, ms);
+	};
 }
 
-f = f.bind({ name: "Dan" });
-f.bind({ name: "Leo" });
+function sayHi(name) {
+	alert(` Hi ${name}`);
+}
 
-f();
+let sayhiDeferred = defer(sayHi, 500);
+sayhiDeferred("Dan");
