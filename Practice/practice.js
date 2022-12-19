@@ -1,23 +1,25 @@
 "use strict";
 
-function work(a, b) {
-	alert(a + b);
+function f(a) {
+	alert(a);
 }
 
-function spy(func) {
-	return function wrapper(a, b) {
-		wrapper.calls = [];
-		wrapper.calls = func(a, b);
-
-		return wrapper.calls;
+function throttle(f, ms) {
+	let count = 0;
+	count++;
+	let countSum = [];
+	countSum.push(count);
+	let isCoolDown = false;
+	return function () {
+		if (isCoolDown) return;
+		f.apply(this, arguments);
+		isCoolDown = true;
+		setTimeout(() => (setTimeout = false), ms);
 	};
+	return f.apply(this, arguments);
 }
 
-work = spy(work);
-
-work(1, 2); // 3
-work(4, 5); // 9
-
-for (let args of work.calls) {
-	alert("call:" + args.join()); // "call:1,2", "call:4,5"
-}
+let f1000 = throttle(f, 1000);
+f1000(1); // показывает 1
+f1000(2); // (ограничение, 1000 мс ещё нет)
+f1000(3); // (ограничение, 1000 мс ещё нет)
