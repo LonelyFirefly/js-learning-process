@@ -1,20 +1,23 @@
 "use strict";
 
-function User(name, birthday) {
-	this.name = name;
-	this.birthday = birthday;
-	Object.defineProperty(this, "age", {
-		get() {
-			let todayYear = new Date().getFullYear();
-			return todayYear - this.birthday.getFullYear();
-		},
-		set(value) {
-			this._age = value;
-		},
-	});
-}
+let head = {
+	glasses: 1,
+};
+let table = {
+	pen: 3,
+	__proto__: head,
+};
+let bed = {
+	sheet: 1,
+	pillow: 2,
+	__proto__: table,
+};
+let pockets = {
+	money: 2000,
+	__proto__: bed,
+};
 
-let john = new User("Dan", new Date(2002, 4, 9));
-john.age = 23;
-alert(john.age);
-alert(john.birthday);
+let date = new Date();
+let result = pockets.glasses;
+let newDate = new Date();
+alert(newDate.getTime() - date.getTime());
