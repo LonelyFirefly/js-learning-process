@@ -1,15 +1,16 @@
 "use strict";
 
-if (!Function.prototype.defer) {
-	Function.prototype.defer = function (ms) {
-		return (...args) => {
-			setTimeout(() => this.apply(this, args), ms);
-		};
-	};
+function Rabbit(name) {
+	this.name = name;
 }
 
-function f(a, b) {
-	alert(a + b);
-}
+Rabbit.prototype.sayHi = function () {
+	alert(this.name);
+};
 
-f.defer(1000)(1, 2); // выведет 3 через 1 секунду.
+let rabbit = new Rabbit("Rabbit");
+
+rabbit.sayHi();
+Rabbit.prototype.sayHi();
+Object.getPrototypeOf(rabbit).sayHi();
+rabbit.__proto__.sayHi();
