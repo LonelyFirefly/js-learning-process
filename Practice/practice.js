@@ -1,23 +1,15 @@
 "use strict";
 
-let head = {
-	glasses: 1,
-};
-let table = {
-	pen: 3,
-	__proto__: head,
-};
-let bed = {
-	sheet: 1,
-	pillow: 2,
-	__proto__: table,
-};
-let pockets = {
-	money: 2000,
-	__proto__: bed,
-};
+if (!Function.prototype.defer) {
+	Function.prototype.defer = function (ms) {
+		return (...args) => {
+			setTimeout(() => this.apply(this, args), ms);
+		};
+	};
+}
 
-let date = new Date();
-let result = pockets.glasses;
-let newDate = new Date();
-alert(newDate.getTime() - date.getTime());
+function f(a, b) {
+	alert(a + b);
+}
+
+f.defer(1000)(1, 2); // выведет 3 через 1 секунду.
