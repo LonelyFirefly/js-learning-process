@@ -1,16 +1,38 @@
 "use strict";
 
-function Rabbit(name) {
-	this.name = name;
+class Animal {
+	constructor(name) {
+		this.speed = 0;
+		this.name = name;
+	}
+	run(speed) {
+		this.speed = speed;
+		alert(`${this.name} runs with a speed of ${this.speed}.`);
+	}
+	stop() {
+		this.speed = 0;
+		alert(`${this.name} doesn't move.`);
+	}
 }
 
-Rabbit.prototype.sayHi = function () {
-	alert(this.name);
-};
+class Rabbit extends Animal {
+	constructor(name, earLength) {
+		super(name);
+		this.speed = 0;
+		this.earLength = earLength;
+	}
 
-let rabbit = new Rabbit("Rabbit");
+	hide() {
+		alert(`${this.name} is hiding`);
+	}
 
-rabbit.sayHi();
-Rabbit.prototype.sayHi();
-Object.getPrototypeOf(rabbit).sayHi();
-rabbit.__proto__.sayHi();
+	stop() {
+		super.stop();
+		this.hide();
+	}
+}
+
+let rabbit = new Rabbit("White Rabbit", 10);
+
+alert(rabbit.name);
+alert(rabbit.earLength);
