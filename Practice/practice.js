@@ -1,21 +1,12 @@
 "use strict";
 
-class CoffeeMachine {
-	_waterAmount = 0;
-
-	constructor(power) {
-		this.power = power;
-	}
-
-	get waterAmount() {
-		return this._waterAmount;
-	}
-
-	set waterAmount(value) {
-		if (value < 0) throw new Error("Negative amount of water");
-		this._waterAmount = value;
+class PowerArray extends Array {
+	isEmpty() {
+		return this.length === 0;
 	}
 }
 
-let coffeeMachine = new CoffeeMachine(100);
-coffeeMachine.waterAmount = -200;
+let arr = new PowerArray(1, 2, 3, 12, 2);
+alert(arr.isEmpty());
+
+let filteredArray = arr.filter((item) => it);
