@@ -1,42 +1,33 @@
 "use strict";
 
-let eventMixin = {
-	on(eventName, handler) {
-		if (!this._eventHandlers) this._eventHandlers = {};
-		if (!this._eventHandlers[eventName]) {
-			this._eventHandlers[eventName] = [];
-		}
-		this._eventHandlers[eventName].push(handler);
-	},
+// let user = `{ "name": "John", "age": 30 }`;
 
-	off(eventName, handler) {
-		let handlers = this._eventHandlers && this._eventHandlers[eventName];
-		if (!handlers) return;
-		for (let index = 0; index < handlers.length; index++) {
-			if (handlers[index] === handler) {
-				handlers.splice(i--, 1);
-			}
-		}
-	},
-
-	trigger(eventName, ...args) {
-		if (this._eventHandlers || this._eventHandlers[eventName]) {
-			return;
-		}
-		this._eventHandlers[eventName].forEach((handler) =>
-			handler.apply(this, args)
-		);
-	},
-};
-
-class Menu {
-	choose(value) {
-		this.trigger("select", value);
+class ValidationError extends Error {
+	constructor(message) {
+		super(message);
+		this.name = "ValidationError";
 	}
 }
 
-Object.assign(Menu.prototype, eventMixin);
-let menu = new Menu();
+function readUser(json) {
+	let user = JSON.parse(json);
+	if (!user.name) {
+		throw new ValidationError("Field is missing: name");
+	}
+	if (!user.age) {
+		throw new ValidationError("Field is missing: age");
+	}
+	return user;
+}
 
-menu.on("select", (value) => alert(`Chosen value is ${value}`));
-menu.choose("123");
+try {
+	let user = readUser('{ "age": 25 }');
+} catch (error) {
+	if (error instanceof ValidationError) {
+		alert(`Invalid data: ${error.message}`);
+	} else if (error instanceof SyntaxError) {
+		alert(`JSON Syntax error: ${error.message}`);
+	} else {
+		throw error;
+	}
+}
