@@ -1,33 +1,17 @@
 "use strict";
 
-// let user = `{ "name": "John", "age": 30 }`;
-
-class ValidationError extends Error {
+class FormatError extends SyntaxError {
 	constructor(message) {
 		super(message);
-		this.name = "ValidationError";
+		this.name = this.constructor.name;
 	}
 }
 
-function readUser(json) {
-	let user = JSON.parse(json);
-	if (!user.name) {
-		throw new ValidationError("Field is missing: name");
-	}
-	if (!user.age) {
-		throw new ValidationError("Field is missing: age");
-	}
-	return user;
-}
+let err = new FormatError("ошибка форматирования");
 
-try {
-	let user = readUser('{ "age": 25 }');
-} catch (error) {
-	if (error instanceof ValidationError) {
-		alert(`Invalid data: ${error.message}`);
-	} else if (error instanceof SyntaxError) {
-		alert(`JSON Syntax error: ${error.message}`);
-	} else {
-		throw error;
-	}
-}
+alert(err.message); // ошибка форматирования
+alert(err.name); // FormatError
+alert(err.stack); // stack
+
+alert(err instanceof FormatError); // true
+alert(err instanceof SyntaxError); // true (потому что наследует от SyntaxError)
