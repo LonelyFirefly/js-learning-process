@@ -1,14 +1,41 @@
 "use strict";
 
-let names = ["iliakan", "remy", "jeresig"];
+function loadScript(src, callback) {
+	let script = document.createElement("script");
+	script.src = src;
 
-let requests = names.map((name) =>
-	fetch(`https://api.github.com/users/${name}`)
-);
+	script.onload = () => callback(null, script);
+	script.onerror = () => callback(new Error(`Fuck ${src})`));
 
-Promise.all(requests).then((responses) => {
-	for (let response of responses) {
-		alert(`${response.url}: ${response.status}`);
-	}
-	return responses;
-}).then;
+	document.body.append(script);
+}
+
+// let loadScriptPromise = function (src) {
+// 	return new Promise((resolve, reject) => {
+// 		loadScript(src, (error, script) => {
+// 			if (error) reject(error);
+// 			else resolve(script);
+// 		});
+// 	});
+// };
+
+function promisify(f, severalArgs = false) {
+	return function (...args) {
+		return new Promise((resolve, reject) => {
+			function callback(error, ...results) {
+				if (error) {
+					reject(error);
+				} else {
+					resolve(severalArgs ? results : results[0]);
+				}
+			}
+
+			args.push(callback);
+
+			f.call(this, ...args);
+		});
+	};
+}
+
+let loadScriptPromise = promisify(loadScript, true);
+loadScriptPromise("path/script.js");
