@@ -1,6 +1,16 @@
 "use strict";
 
-alert(location.href);
-if (confirm("To Wikipedia")) {
-	location.href = "https://wikipedia.org";
+let list = document.createElement("ul");
+document.body.append(list);
+
+while (true) {
+	let data = prompt("content?");
+
+	if (!data) {
+		break;
+	}
+
+	let li = document.createElement("li");
+	li.textContent = data;
+	list.append(li);
 }
