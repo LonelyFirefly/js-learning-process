@@ -1,16 +1,17 @@
 "use strict";
 
-function showNotification({ top, right, html, className }) {
-	let notification = document.createElement("div");
-	notification.classList.add("notification");
-	notification.style.top = top + "px";
-	notification.style.right = right + "px";
-	notification.innerHTML = html;
-	notification.classList.add(className);
-	document.body.append(notification);
-	setTimeout(() => {
-		notification.remove();
-	}, 1500);
-}
+let field = document.getElementById("field");
 
-showNotification();
+let fieldCoordinates = field.getBoundingClientRect();
+console.log(fieldCoordinates);
+
+console.log(fieldCoordinates.right, fieldCoordinates.bottom);
+console.log(fieldCoordinates.left, fieldCoordinates.top);
+console.log(
+	fieldCoordinates.right - field.clientLeft,
+	fieldCoordinates.bottom - field.clientTop
+);
+console.log(
+	fieldCoordinates.x + field.clientLeft,
+	fieldCoordinates.y + field.clientTop
+);
