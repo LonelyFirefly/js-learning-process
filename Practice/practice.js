@@ -1,17 +1,37 @@
 "use strict";
 
-let field = document.getElementById("field");
+function positionAt(anchor, position, elem) {
+	let anchorCoords = elem.getBoundingClientRect();
 
-let fieldCoordinates = field.getBoundingClientRect();
-console.log(fieldCoordinates);
+	switch (position) {
+		case "top":
+			elem.style.left = anchorCoords.left + "px";
+			elem.style.top = anchorCoords.top - elem.offsetHeight + "px";
+			break;
 
-console.log(fieldCoordinates.right, fieldCoordinates.bottom);
-console.log(fieldCoordinates.left, fieldCoordinates.top);
-console.log(
-	fieldCoordinates.right - field.clientLeft,
-	fieldCoordinates.bottom - field.clientTop
-);
-console.log(
-	fieldCoordinates.x + field.clientLeft,
-	fieldCoordinates.y + field.clientTop
-);
+		case "right":
+			elem.style.left = anchorCoords.left + anchor.offsetWidth + "px";
+			elem.style.top = anchorCoords.top + "px";
+			break;
+
+		case "bottom":
+			elem.style.left = anchorCoords.left + "px";
+			elem.style.top = anchorCoords.top + anchor.offsetHeight + "px";
+			break;
+	}
+}
+
+function showNote(anchor, position, html) {
+	let note = document.createElement("div");
+	note.className = "note";
+	note.innerHTML = html;
+	document.body.append(note);
+
+	positionAt(anchor, position, note);
+}
+
+let blockquote = document.querySelector("blockquote");
+
+showNote(blockquote, "top", "note above");
+showNote(blockquote, "right", "note at the right");
+showNote(blockquote, "bottom", "note below");
