@@ -1,22 +1,48 @@
 "use strict";
 
+function getCoords(elem) {
+	let box = elem.getBoundingClientRect();
+
+	return {
+		top: box.top + window.pageYOffset,
+		left: box.left + window.pageXOffset,
+		bottom: box.bottom,
+		right: box.right,
+	};
+}
+
 function positionAt(anchor, position, elem) {
-	let anchorCoords = elem.getBoundingClientRect();
+	let anchorCoords = getCoords(anchor);
 
 	switch (position) {
-		case "top":
+		case "top-out":
 			elem.style.left = anchorCoords.left + "px";
 			elem.style.top = anchorCoords.top - elem.offsetHeight + "px";
 			break;
 
-		case "right":
+		case "right-out":
 			elem.style.left = anchorCoords.left + anchor.offsetWidth + "px";
 			elem.style.top = anchorCoords.top + "px";
 			break;
 
-		case "bottom":
+		case "bottom-out":
 			elem.style.left = anchorCoords.left + "px";
 			elem.style.top = anchorCoords.top + anchor.offsetHeight + "px";
+			break;
+
+		case "top-in":
+			elem.style.left = anchorCoords.left + "px";
+			elem.style.top = anchorCoords.top + "100px";
+			break;
+
+		case "right-in":
+			elem.style.left = anchorCoords.right - elem.offsetWidth + "px";
+			elem.style.top = anchorCoords.top + "px";
+			break;
+
+		case "bottom-in":
+			elem.style.left = anchorCoords.left + "px";
+			elem.style.top = anchorCoords.bottom - elem.offsetHeight + "px";
 			break;
 	}
 }
@@ -29,9 +55,9 @@ function showNote(anchor, position, html) {
 
 	positionAt(anchor, position, note);
 }
-
 let blockquote = document.querySelector("blockquote");
 
-showNote(blockquote, "top", "note above");
-showNote(blockquote, "right", "note at the right");
-showNote(blockquote, "bottom", "note below");
+showNote(blockquote, "top-in", "note top-in");
+showNote(blockquote, "top-out", "note top-out");
+showNote(blockquote, "right-out", "note right-out");
+showNote(blockquote, "bottom-in", "note bottom-in");
