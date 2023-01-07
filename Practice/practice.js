@@ -55,6 +55,7 @@ function showNote(anchor, position, html) {
 
 	positionAt(anchor, position, note);
 }
+
 let blockquote = document.querySelector("blockquote");
 
 showNote(blockquote, "top-in", "note top-in");
